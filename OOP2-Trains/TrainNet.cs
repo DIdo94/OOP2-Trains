@@ -98,11 +98,13 @@ namespace OOP2_Trains
 
         public IEnumerable<KindTrain> GetTrains(string fStation, string lStation)
         {
-            return _trains.Where(t => t.FirstStation == fStation && t.LastStation == lStation).AsEnumerable();
+            return _trains.Where(t => t.FirstStation.ToLower() == fStation.ToLower().Trim() 
+                && t.LastStation.ToLower() == lStation.ToLower().Trim()).AsEnumerable();
         }
 
         public IEnumerable<KindTrain> GetTrainsBeforeDeparture(string fStation, string lStation, DateTime hour)
         {
+            var gt = GetTrains(fStation, lStation);
             return GetTrains(fStation, lStation).Where(t => t.DepartureTime < hour);
         }
 
